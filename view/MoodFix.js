@@ -25,9 +25,6 @@ function init() {
     chrome.runtime.sendMessage({ cmd: "fixBadgeMessaging" });
   });
 
-  document.querySelector("#bulkBadgeNext").addEventListener("click", function() {
-    chrome.runtime.sendMessage({ cmd: "bulkBadgeNext" });
-  });
   document.querySelector("#bulkBadgeCancel").addEventListener("click", function() {
     chrome.runtime.sendMessage({ cmd: "bulkBadgeCancel" });
   });
