@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="./MoodFix.css">
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined" rel="stylesheet">
+  </head>
+  <body>
+    <div class="title">
+      <h1> totara-fix </h1>
+      <p id="message"> Totara helper </p>
+    </div>
+    <div class="mainContent">
+      <div class="contentWrapper">
+        <i class="material-icons-outlined">credit_card</i>
+        <h2> Fix Badge Messaging </h2>
+        <p class="smalltext">Checks all messaging in the edit badge page for incorrect usage of placeholders and replaces them.</p>
+        <button id="fixBadgeMessagingStart"> Start </button></p>
+      </div>
+      <div class="contentWrapper">
+        <h2>Bulk badge message fix</h2>
+        <p class="smalltext">Upload a CSV file with links to badge messaging pages to fix.</p>
+        <input type="file" id="bulkBadgeCSV">
+        <button id="bulkBadgeNext">Next</button>
+        <button id="bulkBadgeCancel">Cancel</button>
+      </div>
+    </div>
+    <div class="footer">
+      <i class="material-icons-outlined">help</i>      
+      <span> Izzy MG </span>
+    </div>
+    <script src="./MoodFix.js"></script>
+  </body>
+</html>

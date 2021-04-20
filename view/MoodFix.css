@@ -1,0 +1,86 @@
+html {
+  font-size: 1.3em;
+  margin: 0;
+}
+
+body {
+  font-family: "PT Sans", Arial, Helvetica, sans-serif;
+  font-size: 0.68rem;
+  margin: 0;
+  padding: 10px;
+  width: 500px;
+}
+
+h1, h2, h3, h4 {
+  margin: 0;
+  font-weight: normal;
+  display: inline-block;
+}
+
+p { margin: 2px 0; }
+
+button {
+  border: 1px solid hsl(0, 0%, 80%);
+  box-shadow: inset 2px 5px 5px hsl(0, 0%, 98%);
+  padding: 5px;
+  transition: border 200ms, box-shadow 100ms;
+  background: #fff;
+  cursor: pointer;
+}
+
+button:hover {
+  border: 1px solid hsl(338, 20%, 75%);
+  box-shadow: inset 2px 5px 25px hsl(338, 60%, 94%);
+}
+i.material-icons-outlined, i.material-icons {
+  position: relative;
+  vertical-align: middle;
+  top: -3px;
+  font-size: 26px;
+}
+
+.error {
+  color: red;
+}
+
+.status {
+  color: rgb(76, 150, 175);
+}
+
+.title {
+  width: 100%;
+  text-align: center;
+}
+
+.title h1 {
+  color: lightpink;
+}
+
+.mainContent {
+  margin: 20px 0;
+}
+
+.contentWrapper {
+  background: #fff;
+  box-shadow: 1px 4px 5px 0 hsl(0, 0%, 92%);
+  border: 1px solid hsl(0, 0%, 88%);
+  padding: 10px;
+  margin: 5px 0;
+}
+
+.contentWrapper p {
+  margin: 5px 0;
+}
+
+.contentWrapper .start {
+  color: lightcoral;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.footer {
+  font-size: 0.65rem;
+  width: 100%;
+  margin: 0 auto;
+  color: hsl(0, 0%, 30%);
+}
