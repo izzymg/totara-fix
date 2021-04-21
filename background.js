@@ -41,7 +41,7 @@ async function bulkBadgeMessaging(badgeLinks) {
       // Give time to load before injecting script (hacky)
       setTimeout(() => {
         chrome.tabs.executeScript(tabID, { file: "injected/iifes/fixBadgeMessaging.js" });
-      }, 5000);
+      }, 3500);
       yield i;
     }
   }
@@ -60,7 +60,7 @@ async function bulkBadgeMessaging(badgeLinks) {
             return;
           }
           chrome.runtime.sendMessage({ status: `Processing: ${next.value + 1}/${badgeLinks.length}` });
-        }, 3000);
+        }, 2500);
       }
     });
     chrome.runtime.sendMessage({ status: `Beginning ~ ${fixingUrls.next().value + 1}/${badgeLinks.length}` });
