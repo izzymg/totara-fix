@@ -10,9 +10,17 @@ function getCurrentTabID() {
   })
 }
 
+function logSearch() {
+  chrome.tabs.executeScript({ file: "injected/iifes/logSearch.js" });
+}
+
+function addBadge() {
+  chrome.tabs.executeScript({ file: "injected/iifes/addBadge.js" });
+}
+
 /** Injects script into current tab to fix common badge messaging issues */
 function fixBadgeMessaging() {
-  chrome.tabs.executeScript({ file: "injected/iifes/fixBadgeMessaging.js" })
+  chrome.tabs.executeScript({ file: "injected/iifes/fixBadgeMessaging.js" });
 }
 
 async function bulkBadgeMessaging(badgeLinks) {
@@ -82,6 +90,12 @@ chrome.declarativeContent.onPageChanged.removeRules(null, () => {
 // Catch and direct messages from extension UI
 chrome.runtime.onMessage.addListener(message => {
   switch(message.cmd) {
+    case "logSearch":
+      logSearch();
+      break;
+    case "addBadge":
+      addBadge();
+      break;
     case "fixBadgeMessaging":
       fixBadgeMessaging();
       break;

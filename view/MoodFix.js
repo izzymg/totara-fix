@@ -29,6 +29,13 @@ function init() {
     chrome.runtime.sendMessage({ cmd: "bulkBadgeCancel" });
   });
 
+  document.querySelector("#addBadge").addEventListener("click", function() {
+    chrome.runtime.sendMessage({ cmd: "addBadge" });
+  });
+
+  document.querySelector("#logSearch").addEventListener("click", function() {
+    chrome.runtime.sendMessage({ cmd: "logSearch" });
+  });
 
   document.querySelector("#bulkBadgeCSV").addEventListener("change", function() {
     // Remove trailing commas, split by commas into array
