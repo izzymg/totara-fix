@@ -80,6 +80,7 @@ function fixLoMessaging() {
 }
 
 async function bulkLoMessaging(loLinks) {
+  console.log(loLinks)
   // Grab current tab ID in case user unfocuses window
   const tabID = await getCurrentTabID();
   let shouldCancel = false;

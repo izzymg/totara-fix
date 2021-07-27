@@ -49,8 +49,11 @@ If you have any questions, then please contact us and we will be happy to help."
 
   
     try {
-      sendMessage("loUpdated");
-      console.log(document.querySelector(`input[name="savechanges"]`))
+      document.querySelector(`input[name="savechanges"]`).click()
+      setTimeout(() => {
+        document.querySelector(".ui-dialog-buttonset button:first-child").click()
+        sendMessage("loUpdated")
+      }, 200)
     } catch(e) {
       console.error(e);
       const error = "Failed to save changes!";
