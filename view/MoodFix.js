@@ -24,9 +24,16 @@ function init() {
   document.querySelector("#fixBadgeMessagingStart").addEventListener("click", function() {
     chrome.runtime.sendMessage({ cmd: "fixBadgeMessaging" });
   });
+  
+  document.querySelector("#fixLoMessagingStart").addEventListener("click", function() {
+    chrome.runtime.sendMessage({ cmd: "fixLoMessaging" });
+  });
 
   document.querySelector("#bulkBadgeCancel").addEventListener("click", function() {
     chrome.runtime.sendMessage({ cmd: "bulkBadgeCancel" });
+  });
+  document.querySelector("#bulkLoCancel").addEventListener("click", function() {
+    chrome.runtime.sendMessage({ cmd: "bulkLoCancel" });
   });
 
   document.querySelector("#addBadge").addEventListener("click", function() {
@@ -37,13 +44,22 @@ function init() {
     chrome.runtime.sendMessage({ cmd: "logSearch" });
   });
 
+  // Remove trailing commas, split by commas into array
+  const parseCSVText = (text) =>
+    text.replace(/,{2,}/g, ",").split(",").map(link => {
+      return link.trim();
+    });
+
   document.querySelector("#bulkBadgeCSV").addEventListener("change", function() {
-    // Remove trailing commas, split by commas into array
     this.files[0].text().then(csv => {
-      let data = csv.replace(/,{2,}/g, ",").split(",").map(link => {
-        return link.trim();
-      });
+      let data = parseCSVText(csv)
       chrome.runtime.sendMessage({ cmd: "bulkBadgeFix", data });
+    });
+  });
+  document.querySelector("#bulkLoCSV").addEventListener("change", function() {
+    this.files[0].text().then(csv => {
+      let data = parseCSVText(csv)
+      chrome.runtime.sendMessage({ cmd: "bulkLoMessaging", data });
     });
   });
 }

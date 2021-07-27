@@ -75,6 +75,56 @@ async function bulkBadgeMessaging(badgeLinks) {
   });
 }
 
+function fixLoMessaging() {
+  chrome.tabs.executeScript({ file: "injected/iifes/fixLoMessaging.js" });
+}
+
+async function bulkLoMessaging(loLinks) {
+  // Grab current tab ID in case user unfocuses window
+  const tabID = await getCurrentTabID();
+  let shouldCancel = false;
+
+  // Watch for cancel event sent by popup
+  chrome.runtime.onMessage.addListener(message => {
+    if(message && message.cmd == "bulkLoCancel") {
+      shouldCancel = true;
+    }
+  });
+
+  function* fixUrls() {
+    for(let i = 0; i < loLinks.length; i++) {
+      if(shouldCancel) {
+        return "Cancelled.";
+      }
+
+      const link = loLinks[i];
+      chrome.tabs.executeScript(tabID, { code: `(() => { window.location.href = "${link}";})();` });
+      setTimeout(() => {
+        chrome.tabs.executeScript(tabID, { file: "injected/iifes/fixLoMessaging.js" });
+      }, 3500);
+      yield i;
+    }
+  }
+
+  return new Promise(resolve => {
+    let fixingUrls = fixUrls();
+    chrome.runtime.onMessage.addListener(function handleNextMessage(message) {
+      if(message && message.sender == "loFixer") {
+        setTimeout(() => {
+          let next = fixingUrls.next();
+          if(next.done) {
+            chrome.runtime.onMessage.removeListener(handleNextMessage);
+            resolve(next.value);
+            return;
+          }
+          chrome.runtime.sendMessage({ status: `Processing: ${next.value + 1}/${loLinks.length}` });
+        }, 2500);
+      }
+    });
+    chrome.runtime.sendMessage({ status: `Beginning ~ ${fixingUrls.next().value + 1}/${loLinks.length}` });
+  });
+}
+
 // Allow popup action when domain matches TCA Totara domain
 chrome.declarativeContent.onPageChanged.removeRules(null, () => {
   chrome.declarativeContent.onPageChanged.addRules([{
@@ -101,6 +151,15 @@ chrome.runtime.onMessage.addListener(message => {
       break;
     case "bulkBadgeFix":
       bulkBadgeMessaging(message.data).then(ret => {
+        chrome.runtime.sendMessage({ status: ret});
+      }).catch(error => {
+        chrome.runtime.sendMessage({ error: error.toString() });
+      });
+    case "fixLoMessaging":
+      fixLoMessaging();
+      break;
+    case "bulkLoMessaging":
+      bulkLoMessaging(message.data).then(ret => {
         chrome.runtime.sendMessage({ status: ret});
       }).catch(error => {
         chrome.runtime.sendMessage({ error: error.toString() });
